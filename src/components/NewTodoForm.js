@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
-import TodoRowItem from './TodoRowItem';
-function NewTodoForm() {
+function NewTodoForm(props) {
 
     const [description, setDescription] = useState('');
 
@@ -15,6 +14,14 @@ function NewTodoForm() {
     //     console.log('assigned', event.target.value);
     //     setAssigned(event.target.value);
     // }
+
+    const submitTodo = () => {
+       if(description !== '' && assigned !== '') {
+            props.addTodo(description, assigned);
+            setDescription('');
+            setAssigned('');
+       }
+    }
 
     return (
         <div className='mt-5'>
@@ -37,9 +44,15 @@ function NewTodoForm() {
                             required
                             onChange={e => setDescription(e.target.value)}
                             value={description}
-                            ></textarea>
+                    ></textarea>
                 </div>
-                <button type='button' className='btn btn-primary mt-3'>Add Todo</button>
+                <button 
+                    type='button' 
+                    className='btn btn-primary mt-3'
+                    onClick={submitTodo}
+                    >
+                        Add Todo
+                        </button>
             </form>
         </div>
     )
